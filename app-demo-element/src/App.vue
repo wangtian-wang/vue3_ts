@@ -1,21 +1,27 @@
 <template>
-  <img src="./assets/logo.png" />
   <div>
-    <el-button type="primary" @click="handleShowMessage">el-button</el-button>
+    <el-button type="primary" @click="handleShowMessage"
+      >t-message-box</el-button
+    >
   </div>
 </template>
 
 <script lang="ts">
-  import { getCurrentInstance, ref } from "vue";
+  import { getCurrentInstance, ref, h } from "vue";
   export default {
     name: "App",
     components: {},
     setup(props, { emit }) {
       const vm = getCurrentInstance().appContext;
       const handleShowMessage = () => {
-        vm.config.globalProperties.$tmessage({
-          message: "hi moring",
-        });
+        vm.config.globalProperties.$tmessageBox
+          .prompt("this is form prompt", "this is some tips from message box")
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       };
       const input = ref("");
       return {
